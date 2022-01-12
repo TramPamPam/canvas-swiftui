@@ -39,9 +39,9 @@ struct ContentView: View {
                         }
                     case .wave:
                         NavigationLink(
-//                            destination: Wave()
+                            destination: Wave()
 //                            destination: WaveShape(strength: 50, frequency: 10, phase: 0.5)
-                            destination: WaveView()
+//                            destination: WaveView()
 
                         ) {
                             Text("\(value.rawValue)")
