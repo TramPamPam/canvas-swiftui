@@ -12,6 +12,8 @@
 import SwiftUI
 
 struct ClockView: View {
+    let tickInterval = 0.01
+
     var body: some View {
 
         GeometryReader { proxy in
@@ -21,9 +23,10 @@ struct ClockView: View {
                 ZStack {
                     ClockFaceCanvas()
 
-                    TimelineView(.animation(minimumInterval: 0.06)) { timeline in
+                    TimelineView(.animation(minimumInterval: tickInterval)) { timeline in
                         ClockHandsCanvas(date: timeline.date)
                     }
+
                 } // we make sure the Canvas is always a square size
                 .frame(width: min(proxy.size.width, proxy.size.height),
                        height: min(proxy.size.width, proxy.size.height))
@@ -41,7 +44,7 @@ struct ClockFaceCanvas: View {
             drawFace(context: context, size: size)
             drawTicks(context: context, size: size)
             drawNumbers(context: context, size: size)
-            drawBrand(context: context, size: size)
+//            drawBrand(context: context, size: size)
         }
     }
 

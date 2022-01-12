@@ -11,38 +11,41 @@ struct Wave: View {
     var body: some View {
         let amplitude = 0.05   // Amplitude of sine wave is 5% of view height
 
-        Canvas { context, size in
-            let origin = CGPoint(x: 0, y: size.height * 0.50)
+        TimelineView(.animation) { timeline in
+            Canvas { context, size in
+                let origin = CGPoint(x: 0, y: size.height * 0.50)
 
-            let rect = CGRect(origin: origin, size: size)
+                let rect = CGRect(origin: origin, size: size)
 
-            // Path
-            var path = Path.init(CGRect(origin: origin, size: size))
-            path.move(to: origin)
+                // Path
+                var path = Path.init(CGRect(origin: origin, size: size))
+                path.move(to: origin)
 
-            for angle in stride(from: 0, through: 360.0, by: 0.5) {
-                let x = angle/360.0 * size.width
-                let y = origin.y - sin(angle/180.0 * .pi) * size.height * amplitude
-                path.addLine(to: CGPoint(x: x, y: y))
+                for angle in stride(from: 0, through: 360.0, by: 0.5) {
+                    let x = angle/360.0 * size.width
+                    let y = origin.y - abs(sin(angle/180.0 * .pi)) * size.height * amplitude
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+
+                // Stroke path
+    //            context.stroke(path, with: .linearGradient(
+    //                Gradient(colors: [.purple, .blue]),
+    //                startPoint: .zero,
+    //                endPoint: CGPoint(x: size.width, y: 0)
+    //            ))
+
+                // Gradient
+                let gradient = Gradient(colors: [.blue, .purple])
+                let from = rect.origin
+                let to = CGPoint(x: rect.width + from.x, y: from.y)
+
+                // Fill path
+                context.fill(path, with: .linearGradient(gradient,
+                                                         startPoint: from,
+                                                         endPoint: to))
             }
-
-            // Stroke path
-            context.stroke(path, with: .linearGradient(
-                Gradient(colors: [.purple, .blue]),
-                startPoint: .zero,
-                endPoint: CGPoint(x: size.width, y: 0)
-            ))
-
-            // Gradient
-            let gradient = Gradient(colors: [.blue, .purple])
-            let from = rect.origin
-            let to = CGPoint(x: rect.width + from.x, y: from.y)
-
-            // Fill path
-            context.fill(path, with: .linearGradient(gradient,
-                                                     startPoint: from,
-                                                     endPoint: to))
         }
+
     }
 }
 
@@ -59,14 +62,20 @@ struct WaveView: View {
     var body: some View {
         ZStack {
             ForEach(0..<colors.count) { i in
-                let str = Double(i * Int.random(in: 1..<10))
-                let fr = Double(i + Int.random(in: 0...1))
-                WaveShape(strength: str,
-                          frequency: fr,
+                WaveShape(strength: 5,
+                          frequency: Double(i),
                           phase: self.phase
                 )
-                    .stroke(colors[i], lineWidth: i+2)
-                    .offset(y: CGFloat(i) * 10)                
+//                    .stroke(colors[i], lineWidth: CGFloat(i+2))
+
+//                let str = Double(i * Int.random(in: 1..<10))
+//                let fr = Double(i + Int.random(in: 0...1))
+//                WaveShape(strength: Double(i * Int.random(in: 1..<10)),
+//                          frequency: Double(i + Int.random(in: 0...1)),
+//                          phase: self.phase
+//                )
+//                    .stroke(colors[i], lineWidth: i+2)
+//                    .offset(y: CGFloat(i) * 10)
             }
         }
         .background(Color.blue)
