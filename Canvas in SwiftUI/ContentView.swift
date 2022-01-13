@@ -8,14 +8,15 @@
 import SwiftUI
 
 enum Example: String {
-    case matrix, clock, wave
+   static var values: [Self] { [.matrix, .clock, .wave, .waveShape, .waveAnimatedShape] }
+    case matrix, clock, wave, waveShape, waveAnimatedShape
 }
 
 struct ContentView: View {
     
     @State private var isPlaying = false
 
-    private var values: [Example] = [.matrix, .clock, .wave]
+    private var values: [Example] = Example.values
 
     var body: some View {
         content.preferredColorScheme(.dark)
@@ -40,9 +41,21 @@ struct ContentView: View {
                     case .wave:
                         NavigationLink(
                             destination: Wave()
-//                            destination: WaveShape(strength: 50, frequency: 10, phase: 0.5)
-//                            destination: WaveView()
+                        ) {
+                            Text("\(value.rawValue)")
+                                .foregroundStyle(.primary)
+                        }
+                    case .waveShape:
+                        NavigationLink(
+                            destination: WaveShape(strength: 50, frequency: 10, phase: 0.5)
 
+                        ) {
+                            Text("\(value.rawValue)")
+                                .foregroundStyle(.primary)
+                        }
+                    case .waveAnimatedShape:
+                        NavigationLink(
+                            destination: WaveView()
                         ) {
                             Text("\(value.rawValue)")
                                 .foregroundStyle(.primary)

@@ -12,7 +12,7 @@
 import SwiftUI
 
 struct ClockView: View {
-    let tickInterval = 0.01
+    let tickInterval = 0.001
 
     var body: some View {
 
@@ -44,7 +44,6 @@ struct ClockFaceCanvas: View {
             drawFace(context: context, size: size)
             drawTicks(context: context, size: size)
             drawNumbers(context: context, size: size)
-//            drawBrand(context: context, size: size)
         }
     }
 
@@ -52,10 +51,10 @@ struct ClockFaceCanvas: View {
 
         let rect = CGRect(origin: .zero, size: size).insetBy(dx: size.width * 0.04, dy: size.width * 0.04)
 
-        let circle_path = Circle().path(in: rect)
+        let circle = Circle().path(in: rect)
 
         // Border
-        context.stroke(circle_path,
+        context.stroke(circle,
                        with: .linearGradient(Gradient(colors: [.gray, .black]),
                                              startPoint: .zero,
                                              endPoint: CGPoint(x: size.width, y: size.height)),
@@ -67,21 +66,21 @@ struct ClockFaceCanvas: View {
                                         .init(color: .gray, location: 0.95),
                                         .init(color: .black, location: 1.05)])
 
-        context.fill(circle_path, with: .radialGradient(gradient,
+        context.fill(circle, with: .radialGradient(gradient,
                                                    center: CGPoint(x: size.width/2, y: size.height/2),
                                                    startRadius: 0,
                                                    endRadius: size.width/2 - size.width/2 * 0.04))
     }
 
     func drawTicks(context: GraphicsContext, size: CGSize) {
-        let thin_width = size.width * 0.004
-        let thick_width = size.width * 0.012
+        let thin = size.width * 0.004
+        let thick = size.width * 0.012
 
-        let thin = Path(CGRect(origin: CGPoint(x: -thin_width/2, y: size.height * 0.41),
-                               size: CGSize(width: thin_width, height: size.height * 0.025)))
+        let thinPath = Path(CGRect(origin: CGPoint(x: -thin/2, y: size.height * 0.41),
+                               size: CGSize(width: thin, height: size.height * 0.025)))
 
-        let thick = Path(CGRect(origin: CGPoint(x: -thick_width/2, y: size.height * 0.40),
-                                size: CGSize(width: thick_width, height: size.height * 0.038)))
+        let thickPath = Path(CGRect(origin: CGPoint(x: -thick/2, y: size.height * 0.40),
+                                size: CGSize(width: thick, height: size.height * 0.038)))
 
 
         for tick in 0...59 {
@@ -89,7 +88,7 @@ struct ClockFaceCanvas: View {
 
             context.translateBy(x: size.width/2.0, y: size.height/2.0)
             context.rotate(by: .degrees(Double(tick) * (360 / 60) + 180))
-            context.fill(tick % 5 == 0 ? thick : thin, with: .color(.black))
+            context.fill(tick % 5 == 0 ? thickPath : thinPath, with: .color(.black))
         }
     }
 
@@ -110,16 +109,6 @@ struct ClockFaceCanvas: View {
         }
     }
 
-    func drawBrand(context: GraphicsContext, size: CGSize) {
-
-        let location = CGPoint(x: size.width/2, y: size.height * 0.65)
-
-        let text = Text("SwiftUI-Lab")
-            .font(.custom("Futura Bold", size: size.width * 0.03))
-            .foregroundColor(.black)
-
-        context.draw(text, at: location, anchor: .center)
-    }
 }
 
 struct ClockHandsCanvas: View {
@@ -148,9 +137,9 @@ struct ClockHandsCanvas: View {
         // Angles for each clock hand. Angles include fractions of hour, minute and second.
         // For example for 14:30:00, the angle of the hour hand, will be exactly in the middle
         // between the 2 and 3 hour positions
-        let s_angle = s / 60 * 360
-        let m_angle = (m + (s_angle / 360)) / 60 * 360
-        let h_angle = (h + (m_angle / 360)) / 12 * 360
+        let secondsAngle = s / 60 * 360
+        let minuteAngle = (m + (secondsAngle / 360)) / 60 * 360
+        let hourAngle = (h + (minuteAngle / 360)) / 12 * 360
 
         // Canvas center point
         let midpoint = CGPoint(x: size.width/2, y: size.height/2)
@@ -165,7 +154,7 @@ struct ClockHandsCanvas: View {
                                                 height: size.height/2.0 * 0.58 + o)))
 
             context.translateBy(x: size.width/2.0, y: size.height/2.0)
-            context.rotate(by: .degrees(h_angle + 180))
+            context.rotate(by: .degrees(hourAngle + 180))
             context.addFilter(.shadow(radius: 3))
             context.fill(path, with: .color(.black))
         }
@@ -180,7 +169,7 @@ struct ClockHandsCanvas: View {
                                                 height: size.height/2.0 * 0.76 + o)))
 
             context.translateBy(x: size.width/2.0, y: size.height/2.0)
-            context.rotate(by: .degrees(m_angle + 180))
+            context.rotate(by: .degrees(minuteAngle + 180))
             context.addFilter(.shadow(radius: 3))
             context.fill(path, with: .color(.black))
         }
@@ -202,7 +191,7 @@ struct ClockHandsCanvas: View {
                                                 height: size.height/2.0 * 0.7 + o)))
 
             context.translateBy(x: size.width/2.0, y: size.height/2.0)
-            context.rotate(by: .degrees(s_angle + 180))
+            context.rotate(by: .degrees(secondsAngle + 180))
             context.addFilter(.shadow(radius: 3))
             context.fill(path, with: .color(.red))
         }
