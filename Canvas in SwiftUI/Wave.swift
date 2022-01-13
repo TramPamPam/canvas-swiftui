@@ -65,7 +65,7 @@ struct WaveView: View {
                           frequency: fr,
                           phase: self.phase
                 )
-                    .stroke(colors[i], lineWidth: i+2)
+                    .stroke(colors[i], lineWidth: Double(i+2))
                     .offset(y: CGFloat(i) * 10)                
             }
         }
