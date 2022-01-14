@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D396CE82791D360000D98D8 /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D396CE72791D360000D98D8 /* WaveView.swift */; };
+		3D396CEA2791D3CD000D98D8 /* WaveShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D396CE92791D3CD000D98D8 /* WaveShape.swift */; };
 		A57990C3278B21080091F5B7 /* Canvas_in_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57990C2278B21080091F5B7 /* Canvas_in_SwiftUIApp.swift */; };
 		A57990C5278B21080091F5B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57990C4278B21080091F5B7 /* ContentView.swift */; };
 		A57990C7278B210D0091F5B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A57990C6278B210D0091F5B7 /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D396CE72791D360000D98D8 /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
+		3D396CE92791D3CD000D98D8 /* WaveShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveShape.swift; sourceTree = "<group>"; };
 		A57990BF278B21080091F5B7 /* Canvas in SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Canvas in SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57990C2278B21080091F5B7 /* Canvas_in_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas_in_SwiftUIApp.swift; sourceTree = "<group>"; };
 		A57990C4278B21080091F5B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -64,6 +68,8 @@
 				A57990D0278B22DF0091F5B7 /* DigitalRain.swift */,
 				A57990D2278B2A9A0091F5B7 /* ClockView.swift */,
 				A57990D4278B2C090091F5B7 /* Wave.swift */,
+				3D396CE92791D3CD000D98D8 /* WaveShape.swift */,
+				3D396CE72791D360000D98D8 /* WaveView.swift */,
 			);
 			path = "Canvas in SwiftUI";
 			sourceTree = "<group>";
@@ -147,6 +153,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A57990C5278B21080091F5B7 /* ContentView.swift in Sources */,
+				3D396CE82791D360000D98D8 /* WaveView.swift in Sources */,
+				3D396CEA2791D3CD000D98D8 /* WaveShape.swift in Sources */,
 				A57990D5278B2C090091F5B7 /* Wave.swift in Sources */,
 				A57990D3278B2A9A0091F5B7 /* ClockView.swift in Sources */,
 				A57990C3278B21080091F5B7 /* Canvas_in_SwiftUIApp.swift in Sources */,

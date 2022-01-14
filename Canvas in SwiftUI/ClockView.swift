@@ -12,7 +12,7 @@
 import SwiftUI
 
 struct ClockView: View {
-    let tickInterval = 0.001
+    let tickInterval = 1.001
 
     var body: some View {
 

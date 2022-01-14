@@ -17,6 +17,7 @@ struct DigitalRain: View {
 
     struct DigitalRainCanvas: View {
         @StateObject var core = MatrixCore(columnCount: 0)
+        
         let date: Date
 
         var body: some View {
